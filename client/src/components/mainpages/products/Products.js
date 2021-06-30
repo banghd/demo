@@ -29,7 +29,7 @@ function Products() {
             const destroyImg = axios.post('/api/destroy', {public_id},{
                 headers: {Authorization: token}
             })
-            const deleteProduct = axios.delete(`/api/products/${id}`, {
+            const deleteProduct = axios.delete(`/products/${id}`, {
                 headers: {Authorization: token}
             })
 

@@ -15,12 +15,12 @@ function Categories() {
         e.preventDefault()
         try {
             if(onEdit){
-                const res = await axios.put(`/api/category/${id}`, {name: category}, {
+                const res = await axios.put(`/category/${id}`, {name: category}, {
                     headers: {Authorization: token}
                 })
                 alert(res.data.msg)
             }else{
-                const res = await axios.post('/api/category', {name: category}, {
+                const res = await axios.post('/category', {name: category}, {
                     headers: {Authorization: token}
                 })
                 alert(res.data.msg)
@@ -42,7 +42,7 @@ function Categories() {
 
     const deleteCategory = async id =>{
         try {
-            const res = await axios.delete(`/api/category/${id}`, {
+            const res = await axios.delete(`/category/${id}`, {
                 headers: {Authorization: token}
             })
             alert(res.data.msg)
