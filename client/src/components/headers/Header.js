@@ -3,7 +3,6 @@ import {GlobalState} from '../../GlobalState'
 import Menu from './icon/menu.svg'
 import Close from './icon/close.svg'
 import Cart from './icon/cart.svg'
-import Store from './icon/plus-solid.svg'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 
