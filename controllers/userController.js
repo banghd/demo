@@ -3,7 +3,6 @@ const Users = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const _ = require('lodash')
 const jwt = require('jsonwebtoken')
-const { getMaxListeners } = require('../models/userModel')
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.MAIL_API_KEY)
 const userCtrl = {
