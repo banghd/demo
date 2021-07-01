@@ -16,17 +16,11 @@ app.use(fileUpload({
 }))
 
 // Routes
-app.use('/user', require('./routes/userRouter'))
-app.use('/category', require('./routes/categoryRouter'))
-app.use('/image', require('./routes/upload'))
-app.use('/products', require('./routes/productRouter'))
-
-
+app.use('/' , require('./routes/index'))
 
 
 // Connect to mongodb
-const URI = process.env.MONGODB_URL
-mongoose.connect(URI, {
+mongoose.connect(process.env.MONGODB_URL, {
     useCreateIndex: true,
     useFindAndModify: false,
     useNewUrlParser: true,
@@ -35,13 +29,6 @@ mongoose.connect(URI, {
     if(err) throw err;
     console.log('Connected to MongoDB')
 })
-
-// if(process.env.NODE_ENV === 'production'){
-//     app.use(express.static('client/build'))
-//     app.get('*', (req, res) => {
-//         res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-//     })
-// }
 
 
 

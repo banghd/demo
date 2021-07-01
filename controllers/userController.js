@@ -10,9 +10,7 @@ const userCtrl = {
         try {
             const { name, email, password } = req.body;
 
-            const user = await Users.findOne({ email }, err => {
-                if (err) res.status(501).json({ msg: err })
-            })
+            const user = await Users.findOne({ email })
             if (user) return res.status(400).json({ msg: "The email already exists." })
 
 
@@ -25,9 +23,7 @@ const userCtrl = {
             })
 
             // Save mongodb
-            await newUser.save((err) => {
-                if (err) res.json({ msg: err })
-            })
+            await newUser.save()
 
             // Then create jsonwebtoken to authentication
             const accesstoken = createAccessToken({ id: newUser._id })
@@ -49,9 +45,7 @@ const userCtrl = {
         try {
             const { email, password } = req.body;
 
-            const user = await Users.findOne({ email }, (err) => {
-                if (err) res.json({ msg: err })
-            })
+            const user = await Users.findOne({ email })
             if (!user) return res.status(400).json({ msg: "User does not exist." })
 
             const isMatch = await bcrypt.compare(password, user.password)
@@ -90,7 +84,6 @@ const userCtrl = {
                 if (err) return res.status(400).json({ msg: "Please Login or Register" })
 
                 const accesstoken = createAccessToken({ id: user.id })
-
                 res.json({ accesstoken })
             })
 
@@ -101,9 +94,7 @@ const userCtrl = {
     },
     getUser: async (req, res) => {
         try {
-            const user = await Users.findById(req.user.id, (err) => {
-                if (err) res.json({ msg: err })
-            }).select('-password')
+            const user = await Users.findById(req.user.id).select('-password -resetToken')
             if (!user) return res.status(400).json({ msg: "User does not exist." })
 
             res.json(user)
@@ -113,16 +104,11 @@ const userCtrl = {
     },
     addCart: async (req, res) => {
         try {
-            const user = await Users.findById(req.user.id, (err) => {
-                if (err) res.json({ msg: err })
-            })
+            const user = await Users.findById(req.user.id)
             if (!user) return res.status(400).json({ msg: "User does not exist." })
 
             await Users.findOneAndUpdate({ _id: req.user.id }, {
                 cart: req.body.cart
-            }, (err) => {
-                if (err)
-                    res.json({ msg: err })
             })
 
             return res.json({ msg: "Added to cart" })

@@ -19,9 +19,9 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    cart: {
-        type: Array,
-        default: []
+    cart:{
+        type : Array,
+        default :[]
     },
     resetToken : {
         default : "",

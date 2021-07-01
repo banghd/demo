@@ -4,10 +4,7 @@ const Products = require('../models/productModel')
 const categoryCtrl = {
     getCategories: async (req, res) => {
         try {
-            const categories = await Category.find((err)=>{
-                if(err) res.json({msg : err})
-                
-            })
+            const categories = await Category.find()
             res.json(categories)
         } catch (err) {
             return res.status(500).json({ msg: err.message })
@@ -23,10 +20,8 @@ const categoryCtrl = {
 
             const newCategory = new Category({ name })
 
-            await newCategory.save((err) => {
-                if (err) res.json({ msg: err })
-                res.json({ msg: "Created a category" })
-            })
+            await newCategory.save()
+            res.json({ msg: "Created a category" })
 
         } catch (err) {
             return res.status(500).json({ msg: err.message })
@@ -39,11 +34,8 @@ const categoryCtrl = {
                 msg: "Please delete all products with a relationship."
             })
 
-            await Category.findByIdAndDelete(req.params.id, (err) => {
-                if(err) res.json({msg : err})
-                res.json({ msg: "Deleted a Category" })
-            })
-            
+            await Category.findByIdAndDelete(req.params.id)
+            res.json({ msg: "Deleted a Category" })
         } catch (err) {
             return res.status(500).json({ msg: err.message })
         }
@@ -51,12 +43,9 @@ const categoryCtrl = {
     updateCategory: async (req, res) => {
         try {
             const { name } = req.body;
-            await Category.findOneAndUpdate({ _id: req.params.id }, { name }, (err)=>{
-                if(err)res.json({msg : err})
-                res.json({ msg: "Updated a category" })
-            })
+            await Category.findOneAndUpdate({ _id: req.params.id }, { name })
 
-        
+            res.json({ msg: "Updated a category" })
         } catch (err) {
             return res.status(500).json({ msg: err.message })
         }
