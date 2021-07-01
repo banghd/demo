@@ -25,7 +25,7 @@ const userCtrl = {
             })
 
             // Save mongodb
-            await newUser.save(() => {
+            await newUser.save((err) => {
                 if (err) res.json({ msg: err })
             })
 
@@ -113,20 +113,21 @@ const userCtrl = {
     },
     addCart: async (req, res) => {
         try {
-            const user = await Users.findById(req.user.id , (err)=>{
-                if(err) res.json({msg : err})
+            const user = await Users.findById(req.user.id, (err) => {
+                if (err) res.json({ msg: err })
             })
             if (!user) return res.status(400).json({ msg: "User does not exist." })
 
             await Users.findOneAndUpdate({ _id: req.user.id }, {
                 cart: req.body.cart
-            }, (err) =>{
-                res.json({msg : err})
+            }, (err) => {
+                if (err)
+                    res.json({ msg: err })
             })
 
             return res.json({ msg: "Added to cart" })
         } catch (err) {
-            return res.status(500).json({ msg: err.message })
+            return res.json({ msg: err.message })
         }
     },
     forgetPassword: async (req, res) => {
