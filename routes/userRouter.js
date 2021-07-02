@@ -10,9 +10,9 @@ router.get('/logout', userCtrl.logout)
 
 router.get('/refresh-token', userCtrl.refreshToken)
 
-router.get('/information', auth,  userCtrl.getUser)
+router.get('/information', auth, userCtrl.getUser)
 
-router.post('/addcart', auth, userCtrl.addCart)
+router.post('/addcart',auth,  userCtrl.addCart)
 
 
 router.post('/forgetPassword', userCtrl.forgetPassword)

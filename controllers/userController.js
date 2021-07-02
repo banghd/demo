@@ -58,7 +58,8 @@ const userCtrl = {
             res.cookie('refreshtoken', refreshtoken, {
                 httpOnly: true,
                 path: '/user/refresh-token',
-                maxAge: 7 * 24 * 60 * 60 * 1000 // 7d
+                maxAge: 7 * 24 * 60 * 60 * 1000 ,
+                secure : true// 7d
             })
 
             res.json({ accesstoken })
@@ -94,7 +95,7 @@ const userCtrl = {
     },
     getUser: async (req, res) => {
         try {
-            const user = await Users.findById(req.user.id).select('-password -resetToken')
+            const user = await Users.findById(req.user.id).select('-password -resetToken').populate('cart.product')
             if (!user) return res.status(400).json({ msg: "User does not exist." })
 
             res.json(user)
@@ -106,9 +107,10 @@ const userCtrl = {
         try {
             const user = await Users.findById(req.user.id)
             if (!user) return res.status(400).json({ msg: "User does not exist." })
-
+            const cart = req.body.cart
+            const data = cart.map(el => ({product : el._id , soluongmua : el.quantity}))
             await Users.findOneAndUpdate({ _id: req.user.id }, {
-                cart: req.body.cart
+                cart: data
             })
 
             return res.json({ msg: "Added to cart" })

@@ -19,10 +19,13 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    cart:{
-        type : Array,
-        default :[]
-    },
+    cart:[{
+        product : {
+            type : mongoose.Schema.Types.ObjectId,
+            ref: "Products"
+        } ,
+        soluongmua : Number
+    }],
     resetToken : {
         default : "",
         type : String
