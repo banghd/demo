@@ -15,7 +15,7 @@ router.get('/information', auth, userCtrl.getUser)
 router.post('/addcart',auth,  userCtrl.addCart)
 
 
-router.post('/forgetPassword', userCtrl.forgetPassword)
+router.post('/password-recovery', userCtrl.forgetPassword)
 
-router.post('/updatePassword', userCtrl.updatePassword)
+router.post('/password-restoration', userCtrl.updatePassword)
 module.exports = router

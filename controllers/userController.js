@@ -5,15 +5,18 @@ const _ = require('lodash')
 const jwt = require('jsonwebtoken')
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.MAIL_API_KEY)
+
+
+
 const userCtrl = {
     register: async (req, res) => {
         try {
             const { name, email, password } = req.body;
 
-            const user = await Users.findOne({ email })
-            if (user) return res.status(400).json({ msg: "The email already exists." })
+             const user = await Users.findOne({ email })
+             if (user) return res.status(400).json({ msg: "The email already exists." })
 
-
+    
             // Password Encryption
             const passwordHash = await
                 bcrypt.hash(password, 10)
@@ -47,7 +50,8 @@ const userCtrl = {
 
             const user = await Users.findOne({ email })
             if (!user) return res.status(400).json({ msg: "User does not exist." })
-
+           
+            
             const isMatch = await bcrypt.compare(password, user.password)
             if (!isMatch) return res.status(400).json({ msg: "Incorrect password." })
 

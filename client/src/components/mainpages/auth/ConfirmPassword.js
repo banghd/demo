@@ -21,7 +21,7 @@ function ConfirmPassword(props) {
         else if (data.password.length < 6 ) 
         alert('Your password must be more than 6 character')
         else  {
-            await axios.post('http://localhost:5000/user/updatePassword', {newPassword : data.password, resetToken : token})
+            await axios.post('http://localhost:5000/user/password-restoration', {newPassword : data.password, resetToken : token})
             .then(res => alert(res.data.msg))
         }
         

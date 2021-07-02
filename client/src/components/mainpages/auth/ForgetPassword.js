@@ -14,7 +14,7 @@ function ForgetPassword(){
     const resetSubmit = async e=>{
         e.preventDefault()
         try {
-            await axios.post('http://localhost:5000/user/forgetPassword', {email})
+            await axios.post('http://localhost:5000/user/password-recovery', {email})
             .then(res=> alert(res.data.msg));
             
          
