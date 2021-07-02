@@ -22,8 +22,6 @@ function UserAPI(token) {
                    for(let i = 0;i<data.length;i++){
                        cart[i].quantity = data[i].soluongmua
                    }
-                   console.log(cart)
-                    //setCart(res.data.cart)
                     setCart(cart)
 
                 } catch (err) {

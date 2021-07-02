@@ -5,7 +5,7 @@ import Loading from '../utils/loading/Loading'
 import {useHistory, useParams} from 'react-router-dom'
 
 const initialState = {
-    product_id: '',
+   // product_id: '',
     title: '',
     price: 0,
     description: '',
@@ -137,12 +137,6 @@ function CreateProduct() {
             </div>
 
             <form onSubmit={handleSubmit}>
-                <div className="row">
-                    <label htmlFor="product_id">Product ID</label>
-                    <input type="text" name="product_id" id="product_id" required
-                    value={product.product_id} onChange={handleChangeInput} disabled={onEdit} />
-                </div>
-
                 <div className="row">
                     <label htmlFor="title">Title</label>
                     <input type="text" name="title" id="title" required
