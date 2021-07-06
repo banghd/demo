@@ -36,6 +36,7 @@ function Header() {
         return(
             <>  
                 <li><Link to="/" onClick={logoutUser}>Logout</Link></li>
+                
             </>
         )
     }
@@ -58,6 +59,7 @@ function Header() {
             </div>
 
             <ul style={styleMenu}>
+                {isLogged ? <li><Link to="/chat">Chat</Link></li>  : <div />}
                 <li><Link to="/">{isAdmin ? 'Product' : 'Shop'}</Link></li>
 
                 {isAdmin && adminRouter()}
@@ -65,11 +67,11 @@ function Header() {
                 {
                     isLogged ? loggedRouter() : <li><Link to="/login">Login ✥ Register</Link></li>
                 }
-
+                
                 <li onClick={() => setMenu(!menu)}>
                     <img src={Close} alt="" width="30" className="menu" />
                 </li>
-
+                
             </ul>
 
             {

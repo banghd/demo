@@ -10,7 +10,7 @@ export const GlobalState = createContext()
 
 export const DataProvider = ({children}) =>{
     const [token, setToken] = useState(false)
-
+    const [mess, setMess] = useState([])
 
     useEffect(() =>{
         const firstLogin = localStorage.getItem('firstLogin')
@@ -34,7 +34,8 @@ export const DataProvider = ({children}) =>{
         token: [token, setToken],
         productsAPI: ProductsAPI(),
         userAPI: UserAPI(token),
-        categoriesAPI: CategoriesAPI()
+        categoriesAPI: CategoriesAPI(),
+        mess : [mess, setMess]
     }
 
     return (

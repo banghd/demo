@@ -6,7 +6,7 @@ function UserAPI(token) {
     const [isAdmin, setIsAdmin] = useState(false)
     const [cart, setCart] = useState([])
     const [history, setHistory] = useState([])
-
+    const [name , setName] = useState('')
     useEffect(() => {
         if (token) {
             const getUser = async () => {
@@ -16,7 +16,7 @@ function UserAPI(token) {
                     })
                     setIsLogged(true)
                     res.data.role === 1 ? setIsAdmin(true) : setIsAdmin(false)
-                  
+                    setName(res.data.name)
                    const data = res.data.cart
                     let cart = data.map(x => x.product)
                    for(let i = 0;i<data.length;i++){
@@ -24,8 +24,9 @@ function UserAPI(token) {
                    }
                     setCart(cart)
 
-                } catch (err) {
-                    alert(err.response.data.msg)
+                } catch (error) {
+                    console.log( (error.response || {}).data );
+                return false;
                 }
             }
 
@@ -45,10 +46,11 @@ function UserAPI(token) {
 
         if (check) {
             setCart([...cart, { ...product, quantity: 1 }])
-            await axios.post('/user/addcart', { cart: [...cart, { ...product, quantity: 1 }] }, {
+         const res =   await axios.post('/user/addcart', { cart: [...cart, { ...product, quantity: 1 }] }, {
                 headers: { Authorization: token }
             })
 
+            alert(res.data.msg)
         } else {
             alert("This product has been added to cart.")
         }
@@ -59,7 +61,8 @@ function UserAPI(token) {
         isAdmin: [isAdmin, setIsAdmin],
         cart: [cart, setCart],
         addCart: addCart,
-        history: [history, setHistory]
+        history: [history, setHistory],
+        name : [name, setName]
     }
 }
 

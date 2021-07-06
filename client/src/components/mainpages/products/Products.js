@@ -66,7 +66,7 @@ function Products() {
             <div className="delete-all">
                 <span>Select all</span>
                 <input type="checkbox" checked={isCheck} onChange={checkAll} />
-                <button onClick={deleteAll}>Delete ALL</button>
+                <button className="button-delete" onClick={deleteAll}>Delete ALL</button>
             </div>
         }
 

@@ -8,7 +8,10 @@
 
 /* ----------- Product Item ----------------- */
 @import url("../utils/productItem/productItem.css");
-
+.button-delete {
+    text-align: center;
+    background : none;
+}
 .delete-all{
     text-align: right;
     margin: 20px;

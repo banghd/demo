@@ -10,7 +10,7 @@ import Categories from './categories/Categories'
 import CreateProduct from './createProduct/CreateProduct'
 import forgetPassword from './auth/ForgetPassword'
 import ConfirmPassword from  './auth/ConfirmPassword'
-
+import Chat from './chat/Chat'
 
 
 import {GlobalState} from '../../GlobalState'
@@ -34,7 +34,7 @@ function Pages() {
             <Route path="/create_product" exact component={isAdmin ? CreateProduct : NotFound} />
             <Route path="/edit_product/:id" exact component={isAdmin ? CreateProduct : NotFound} />
 
-
+            <Route path="/chat" exact component= {Chat}/>
             <Route path="/cart" exact component={Cart} />
             <Route path="/forgetPassword" exact component ={forgetPassword} />
             <Route path='/user/activate' exact component ={ConfirmPassword} />

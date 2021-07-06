@@ -8,9 +8,17 @@ const cookieParser = require('cookie-parser')
 
 
 const app = express()
+app.use(cors())
+const server = require('http').createServer(app)
+const io = require("socket.io")(server, {
+    cors: {
+      origin: "http://localhost:3000",
+      methods: ["GET", "POST"]
+    }
+  })
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors())
+
 app.use(fileUpload({
     useTempFiles: true
 }))
@@ -32,7 +40,26 @@ mongoose.connect(process.env.MONGODB_URL, {
 
 
 
+
 const PORT = process.env.PORT || 5000
-app.listen(PORT, () =>{
+server.listen(PORT, () =>{
     console.log('Server is running on port', PORT)
 })
+
+
+//socket io chat
+io.on('connection', (socket) => { 
+    console.log("A new client ")
+    socket.emit('getId', socket.id)
+
+    socket.on("sendDataClient", data =>{
+       
+        socket.local.emit('sendDataServer', data)
+    })
+
+    socket.on("disconnect", () => {
+        console.log("Client disconnected"); // Khi client disconnect thì log ra terminal.
+      });
+
+    
+});
